@@ -519,6 +519,250 @@ section { padding-block: clamp(3.5rem, 8vw, 6rem); }
 .person h4 { margin: 0 0 0.15em; font-family: var(--font-body); font-weight: 700; }
 .person .role { color: var(--rust); font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; display:block; }
 
+/* ---- Team strip (About page — the full board, name + title only) ----
+   Horizontal rail on mobile so a 10-person board can swipe; the image
+   placeholder above it is full-width. */
+.team-rail {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rust-dim) transparent;
+}
+.team-card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  border: 1px solid var(--cream-line);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.1rem;
+  background: var(--paper);
+}
+.team-card .person-mark { width: 56px; height: 56px; font-size: 1.1rem; margin-bottom: 0.8rem; }
+.team-card h4 { margin: 0 0 0.2em; font-size: 1rem; }
+.team-card .role { margin-bottom: 0; }
+@media (min-width: 861px) {
+  .team-rail { flex-wrap: wrap; overflow-x: visible; }
+  .team-card { flex: 1 1 200px; }
+}
+.team-banner {
+  margin-bottom: 1.6rem;
+  border: 1.5px dashed var(--rust-dim);
+  border-radius: var(--radius);
+  background: var(--paper-dim);
+}
+
+/* ---- List rows (Practitioners / Clinics pages) -------------------------
+   A directory: image left, details right. On mobile it becomes a swipe
+   rail rather than collapsing, so the list stays scannable. */
+.list-rows { display: grid; gap: 1.1rem; }
+.list-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 1.4rem;
+  align-items: center;
+  border: 1px solid var(--cream-line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+  background: var(--paper);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s ease;
+}
+.list-row:hover { transform: translateY(-2px); border-color: var(--gold); }
+.list-row .row-media {
+  aspect-ratio: 4/5;
+  border-radius: var(--radius);
+  background: var(--paper-dim);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.list-row .row-media img { width: 100%; height: 100%; object-fit: cover; }
+.list-row .row-mark {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--rust-dim);
+}
+.list-row h3 { font-size: 1.25rem; margin-bottom: 0.15em; }
+.list-row .row-sub { color: var(--rust); font-size: 0.88rem; font-weight: 600; margin-bottom: 0.35rem; display: block; }
+.list-row p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+@media (max-width: 560px) {
+  .list-rows {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.6rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rust-dim) transparent;
+  }
+  .list-row { flex: 0 0 82vw; scroll-snap-align: start; grid-template-columns: 1fr; }
+  .list-row .row-media { aspect-ratio: 16/10; max-height: 190px; }
+}
+
+/* ---- Resource cards (Resources page) ---------------------------------- */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+.resource-card {
+  border: 1px solid var(--cream-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.5rem;
+  background: var(--paper);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s ease;
+}
+.resource-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.resource-card .res-ico {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
+  color: var(--rust-deep);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+}
+.resource-card .res-ico svg { width: 20px; height: 20px; }
+.resource-card h3 { font-size: 1.2rem; margin-bottom: 0.2em; }
+.resource-card p { color: var(--ink-soft); font-size: 0.93rem; margin-bottom: 1rem; }
+.resource-card a.res-link {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  font-weight: 600; font-size: 0.92rem; color: var(--rust);
+  text-decoration: none;
+}
+.resource-card a.res-link:hover { color: var(--rust-deep); }
+.resource-card a.res-link svg { width: 13px; height: 13px; }
+
+/* ---- Job cards (Become Involved page) --------------------------------- */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.4rem;
+}
+.job-card {
+  border: 1px solid var(--cream-line);
+  border-radius: var(--radius);
+  padding: 1.7rem 1.6rem;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s ease;
+}
+.job-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.job-card .job-kind {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--olive);
+  padding: 0.25em 0.8em;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+.job-card .job-kind.volunteer { background: var(--rust); }
+.job-card h3 { font-size: 1.3rem; margin-bottom: 0.4em; }
+.job-card p { color: var(--ink-soft); font-size: 0.95rem; }
+.job-card .job-cta {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--cream-line);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---- Clinic list (Clinics page) — bold, plain, easy to grow ---------- */
+.clinic-list { display: grid; gap: 0.4rem; }
+.clinic-list h3 {
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  font-weight: 600;
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--cream-line);
+  margin: 0;
+}
+.clinic-list .clinic-meta {
+  padding: 0.35rem 0.9rem 0.9rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  border-bottom: 1px solid var(--cream-line);
+}
+
+/* ---- Story blocks (Client Stories page) -------------------------------- */
+.story {
+  border: 1px solid var(--cream-line);
+  border-radius: var(--radius);
+  padding: clamp(1.8rem, 4vw, 3rem);
+  background: var(--paper);
+  margin-bottom: 1.8rem;
+}
+.story blockquote {
+  margin: 0 0 1.2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+  line-height: 1.4;
+  color: var(--ink);
+  max-width: 56rem;
+}
+.story .story-who {
+  font-size: 0.95rem;
+  color: var(--rust);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.story .story-note { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1.2rem; max-width: 56rem; }
+.story .story-video {
+  display: inline-flex; align-items: center; gap: 0.45em;
+  font-weight: 600; font-size: 0.95rem; color: var(--rust);
+  text-decoration: none;
+}
+.story .story-video:hover { color: var(--rust-deep); }
+.story .story-video svg { width: 15px; height: 15px; }
+.story .story-video[href="#"] {
+  color: var(--ink-soft);
+  border-bottom: 1px dashed var(--rust-dim);
+}
+
+/* ---- Clinic cards (Impact page — the growing map of where we work) --- */
+.clinic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.4rem;
+}
+.clinic-card {
+  border: 1px solid var(--cream-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--paper);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s ease;
+}
+.clinic-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.clinic-card .card-media {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: var(--paper-dim);
+}
+.clinic-card .card-media img { width: 100%; height: 100%; object-fit: cover; }
+.clinic-card .card-body { padding: 1.3rem 1.4rem 1.5rem; }
+.clinic-card .card-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--olive);
+  padding: 0.22em 0.7em;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
+}
+.clinic-card h3 { font-size: 1.2rem; margin-bottom: 0.3em; }
+.clinic-card p { color: var(--ink-soft); font-size: 0.92rem; margin: 0; }
+
 /* ---- Donate tiers ------------------------------------------------------ */
 .tiers {
   display: grid;
@@ -585,7 +829,7 @@ section { padding-block: clamp(3.5rem, 8vw, 6rem); }
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.8fr 1fr;
+  grid-template-columns: 1.3fr 0.7fr 0.9fr 0.7fr;
   gap: clamp(2rem, 5vw, 4rem);
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(241,232,218,0.14);
@@ -654,6 +898,19 @@ section { padding-block: clamp(3.5rem, 8vw, 6rem); }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
+
+/* ---- Two-up chapter sections (Bowen / Vision pages) --------------------
+   A heading band for a sub-chapter of a page, with a measure-limited
+   copy block beneath. */
+.chapter {
+  border-top: 1px solid var(--cream-line);
+  padding-top: clamp(2rem, 5vw, 3rem);
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+.chapter > h2 { max-width: 52rem; }
+.chapter .chapter-body { max-width: 62rem; }
+.chapter .chapter-body p { color: var(--ink-soft); }
+.chapter .chapter-body p strong { color: var(--ink); }
 
 /* utility */
 .visually-hidden {
